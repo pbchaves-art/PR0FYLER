@@ -2,10 +2,10 @@
 setlocal EnableExtensions DisableDelayedExpansion
 
 :: Define título da janela para ficar mais profissional
-title Exportador GeneMapper Automotivo
+title Exportador Automático para GeneMapper 
 
 echo ============================================
-echo            P R 0 F Y L E R - 1.01
+echo            P R 0 F Y L E R - 1.02
 echo            Electropherogram to PDF 
 echo            Autor: Paulo B. Chaves
 echo    Laboratorio de Biologia e DNA Forense
