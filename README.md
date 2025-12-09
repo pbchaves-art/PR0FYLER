@@ -59,8 +59,8 @@ After execution, the project folder on the Desktop contains:
 
   ## Author
 - Paulo B. Chaves
-- Laboratory of Biology and Forensic DNA
-- Goiás State Forensic Police, Brazil (PCI/GO)
+- Laboratório de Biologia e DNA Forense
+- Polícia Científica de Goiás, Brazil (PCI/GO)
 
 ---
 
