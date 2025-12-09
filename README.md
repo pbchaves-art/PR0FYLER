@@ -22,7 +22,7 @@ This beta version has been tested on GeneMapper ID-X 1.6 (both Client and Full i
 
 ## Workflow Summary
 
-- **Before you begin, download the PR0FYLER.bat file and double-click it to execute.**
+- Before you begin, download the **PR0FYLER.bat** file and double-click it to execute.
 
 
 ### 1. User Input
