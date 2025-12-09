@@ -4,7 +4,6 @@
 ## Overview
 PR0FYLER is an automated tool designed to streamline the export of electropherogram plots from Applied Biosystems GeneMapper. It simplifies the workflow used in forensic DNA laboratories by collecting user credentials, locating the GeneMapper executable, running the export process, and organizing the generated files.
 
-This tool was developed by Paulo B. Chaves at the **Laboratory of Biology and Forensic DNA**, **Goiás State Forensic Police, Brazil (PCI/GO)**
 ---
 
 ## Key Features
@@ -27,8 +26,6 @@ The tool requests:
 - Password (secure, not displayed)  
 - Project name  
 
-All fields must be filled before continuing.
-
 ### 2. Automatic Search for GeneMapper
 The tool searches for the GeneMapper executable using:
 - A fast scan of common installation directories  
@@ -36,24 +33,13 @@ The tool searches for the GeneMapper executable using:
 
 If the executable cannot be found automatically, the user may provide the installation path manually.
 
-### 3. Validation
-The detected or user-provided path is validated to ensure the GeneMapper executable exists and is accessible.  
-If validation fails, the tool stops and displays an error message.
-
-### 4. Export Folder Creation
+### 3. Export Folder Creation
 A folder named after the project is created on the user’s Desktop.  
 All exported electropherogram files and the execution log will be placed in this folder.
 
-### 5. Execution
+### 4. Execution
 The tool runs GeneMapper using command-line arguments to automate the export process.  
 All activity and potential errors are written to a log file stored inside the project folder.
-
-### 6. Completion
-After the process finishes, the tool displays:
-- The location of the exported files  
-- The location of the log file  
-
-A prompt appears before the tool closes.
 
 ---
 
@@ -68,6 +54,8 @@ After execution, the project folder on the Desktop contains:
 - Windows operating system  
 - Applied Biosystems GeneMapper installed  
 - PowerShell (included by default in Windows)
+
+---
 
   ## Author
 - Paulo B. Chaves
