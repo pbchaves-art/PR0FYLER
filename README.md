@@ -1,4 +1,3 @@
-# PR0FYLER
 PR0FYLER – GeneMapper Electropherogram Exporter
 Version 1.01
 Overview
