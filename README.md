@@ -38,6 +38,7 @@ The tool searches for the GeneMapper executable using:
 - The executable must be named GeneMapper.exe
 
 If the executable cannot be found automatically, the user may provide the installation path manually.
+
 Make sure the full path with the .exe file name is provided (e.g. C:\AppliedBiosystems\GeneMapperID-X\Client\app\genemapperidx16.exe).
 
 ### 3. Export Folder Creation
