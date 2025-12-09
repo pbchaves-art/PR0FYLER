@@ -69,30 +69,33 @@ for /f "skip=1 tokens=1" %%D in ('wmic logicaldisk get name') do (
 if defined EXECUTABLE goto :check_exist
 
 echo.
-echo ========================================================
-echo [AVISO] Nao localizei o GeneMapper.exe automaticamente.
+echo ============================================================================
+echo [AVISO] Nao localizei o executavel automaticamente.
 echo.
-echo Informe o caminho do DIRETORIO (pasta) manualmente.  
-echo Voce pode arrastar a pasta do Windows Explorer aqui.
-echo Exemplos: C:\AppliedBiosystems\GeneMapperID-X\Client\app
-echo           D:\AppliedBiosystems\GeneMapperID-X\app
-echo ========================================================
-set /p "EXEPATH=Caminho: "
+echo Informe o CAMINHO COMPLETO do arquivo executavel.
+echo Voce pode arrastar o arquivo do Windows Explorer aqui.
+echo Exemplos:
+echo          C:\AppliedBiosystems\GeneMapperID-X\Client\app\genemapperidx16.exe
+echo          D:\Programas\GeneMapper\GM.exe
+echo ============================================================================
+set /p "EXEPATH=Caminho completo: "
 
-:: Sanitização do Caminho Manual
-:: Remove aspas circundantes se existirem
+:: Remove aspas se existirem
 for %%A in ("%EXEPATH%") do set "EXEPATH=%%~A"
 
 if "%EXEPATH%"=="" goto :found_check
 
-:: Lógica inteligente para detectar se é pasta ou arquivo
-set "EXECUTABLE="
-if exist "%EXEPATH%\GeneMapper.exe" (
-    :: Usuário informou a pasta
-    set "EXECUTABLE=%EXEPATH%\GeneMapper.exe"
-) else (
-    :: Usuário informou o arquivo (ou caminho inválido, validaremos abaixo)
+:: Agora EXEPATH deve ser um arquivo. Validaremos isso.
+if exist "%EXEPATH%" (
     set "EXECUTABLE=%EXEPATH%"
+) else (
+    echo.
+    echo [ERRO] O caminho informado nao corresponde a um arquivo existente.
+    echo Caminho digitado:
+    echo "%EXEPATH%"
+    echo.
+    echo Tente novamente.
+    goto :found_check
 )
 
 :check_exist
