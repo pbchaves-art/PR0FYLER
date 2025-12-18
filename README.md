@@ -75,7 +75,7 @@ After execution, the project folder on the Desktop contains:
 Paulo B. Chaves  
 Laboratório de Biologia e DNA Forense  
 Polícia Científica de Goiás, Brazil (PCI/GO)  
-
+paulo.bchaves@goias.gov.br
 
 ---
 
@@ -85,5 +85,5 @@ PR0FYLER supports a faster, more reliable, and user-friendly method for exportin
 ---
 
   ## Version history
-- 1.01: Initial release. 
+- 1.01: Initial release (09/12/2025). 
 - 1.02: Updated the command prompt title.
