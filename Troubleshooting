@@ -6,7 +6,7 @@ Open GeneMapper and make sure the Default Databse Host is set to the Database th
 a) Select the correct database from the Database Host drop-down menu. 
 b) Press the Default Host button.
 c) Close GeneMapper.
-d) Done! The next time GeneMapper is open, the selected database will be used automatically.
+d) Done! The next time GeneMapper is open, the selected database will be used by default.
 
 
 2 - PDF files not in the Desktop folder: make sure GeneMapper is closed before running PR0FYLER.
