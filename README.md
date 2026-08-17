@@ -44,7 +44,7 @@ The tool requests:
 The tool searches for the GeneMapper.exe executable using:
 - A fast scan of common installation directories  
 - A deeper scan of all connected drives (excluding C:)
-- If the GeneMapper.exe executable cannot be found automatically, the user may provide the installation path manually. 
+- If the GeneMapper.exe executable cannot be found automatically, the user may provide the installation path manually directly on the screen. 
 - Make sure the full path, with the .exe file name in it, is provided (e.g. C:\AppliedBiosystems\GeneMapperID-X\Client\app\genemapperidx16.exe).
 
 ### 3. Export Folder Creation
