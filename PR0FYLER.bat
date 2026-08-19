@@ -4,13 +4,13 @@ setlocal EnableExtensions DisableDelayedExpansion
 :: Window title
 title P R 0 F Y L E R
 
-echo =================================================
-echo              P R 0 F Y L E R - 1.03
-echo              Electropherogram to PDF 
-echo              Author: Paulo B. Chaves
-echo      Laboratorio de Biologia e DNA Forense
-echo   Policia Cientifica de Goias - PCI/GO, Brazil
-echo =================================================
+echo ==================================================
+echo               P R 0 F Y L E R - 1.03
+echo               Electropherogram to PDF 
+echo               Author: Paulo B. Chaves
+echo       Laboratorio de Biologia e DNA Forense
+echo    Policia Cientifica de Goias - PCI/GO, Brazil
+echo ==================================================
 echo. 
 echo BEFORE YOU BEGIN, MAKE SURE THAT:
 echo.
