@@ -79,37 +79,42 @@ for /f "skip=1 tokens=1" %%D in ('wmic logicaldisk get name') do (
 :: ==========================================================
 if defined EXECUTABLE goto :check_exist
 
+:ask_executable
 echo.
 echo ============================================================================
-echo [WARNING] Genemapper executable not found.
+echo [WARNING] GeneMapper executable not found.
 echo.
-echo Type in the FULL PATH for the executable file (.exe).
+echo Type the FULL PATH to the executable file (.exe).
 echo You can drag and drop the file from Windows Explorer here to copy the path.
-echo Exemples:
-echo          C:\AppliedBiosystems\GeneMapperID-X\Client\app\genemapperidx16.exe
+echo Examples:
+echo          C:\AppliedBiosystems\GeneMapperID-X\Client\app\GeneMapperIDX16.exe
 echo          D:\Programas\GeneMapper\GM.exe
 echo ============================================================================
-set /p "EXEPATH=Caminho completo: "
+
+set "EXEPATH="
+set /p "EXEPATH=Executable path: "
 
 :: Remove quotation marks if they exist
 for %%A in ("%EXEPATH%") do set "EXEPATH=%%~A"
 
-if "%EXEPATH%"=="" goto :found_check
+if not defined EXEPATH goto :ask_executable
 
-:: Now EXEPATH must be a file. We'll validade that.
-if exist "%EXEPATH%" (
-    set "EXECUTABLE=%EXEPATH%"
-) else (
+:: Check whether the file exists
+if not exist "%EXEPATH%" (
     echo.
-    echo [ERROR] This path does not correspond to a valid executable (.exe).
+    echo [ERROR] The specified path does not correspond to a valid executable file.
+    echo.
     echo Typed path:
     echo "%EXEPATH%"
     echo.
-    echo Try again.
-    goto :found_check
+    echo Please try again.
+    goto :ask_executable
 )
 
+set "EXECUTABLE=%EXEPATH%"
+
 :check_exist
+
 :: ==========================================================
 :: FINAL VALIDATION
 :: ==========================================================
