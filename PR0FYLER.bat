@@ -23,7 +23,7 @@ if "%USERNAME%"=="" goto :ask_user
 :ask_pass
 set "PASSWORD="
 echo Digite a senha:
-:: Oculta comando PowerShell para o usuário não ver o código técnico
+:: Oculta comando PowerShell
 for /f "delims=" %%p in ('powershell -NoProfile -Command "$pword = Read-Host -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringUni($BSTR)"') do set "PASSWORD=%%p"
 :ask_proj
 set "PROJECT="
