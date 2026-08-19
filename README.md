@@ -1,10 +1,10 @@
 # PR0FYLER – GeneMapper Electropherogram Exporter
-### Version 1.02
+### Version 1.03
 
 ## Overview
 PR0FYLER is an automated tool designed to streamline the export of electropherogram plots from Applied Biosystems GeneMapper. It simplifies the workflow used in forensic DNA laboratories by collecting user credentials, locating the GeneMapper executable, running the export process, and organizing the generated files. 
 
-This beta version has been tested on GeneMapper ID-X 1.6 (both Client and Full installations).
+This version has been tested on GeneMapper ID-X 1.6 (both Client and Full installations).
 
 ---
 
@@ -87,3 +87,4 @@ PR0FYLER supports a faster, more reliable, and user-friendly method for exportin
   ## Version history
 - 1.01: Initial release (09/12/2025). 
 - 1.02: Updated the command prompt title.
+- 1.03: Added initial warnings. Changed language to English (19/08/2026).
