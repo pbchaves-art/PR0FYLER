@@ -36,9 +36,11 @@ if "%USERNAME%"=="" goto :ask_user
 set "PASSWORD="
 for /f "delims=" %%p in ('powershell -NoProfile -Command "$pword = Read-Host 'Password: ' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringUni($BSTR)"') do set "PASSWORD=%%p"
 
+if not defined PASSWORD goto :ask_pass
+
 :ask_proj
 set "PROJECT="
-set /p "PROJECT=Project to export: "
+set /p "PROJECT=Project Name: "
 if "%PROJECT%"=="" goto :ask_proj
 
 echo.
