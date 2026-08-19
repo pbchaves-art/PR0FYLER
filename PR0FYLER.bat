@@ -157,7 +157,7 @@ for %%E in ("%EXECUTABLE%") do set "EXEC_DIR=%%~dpE"
 :: 2. Changes to the executable's directory, ensuring that -commandline works
 PUSHD "%EXEC_DIR%"
 
-:: 3. Executa o comando, usando APENAS o nome do executável (%%~nxE)
+:: 3. Runs the command using ONLY the executable's name (%%~nxE)
 ::    (This ensures that the program is in the correct directory)
 for %%E in ("%EXECUTABLE%") do (
     "%%~nxE" -commandline -username "%USERNAME%" -password "%PASSWORD%" -project "%PROJECT%" -exportsampleplot "%EXPORTDIR%" -splitfile "true" -outputfilename "samplefilename" > "%EXPORTDIR%\log_execucao.txt" 2>&1
