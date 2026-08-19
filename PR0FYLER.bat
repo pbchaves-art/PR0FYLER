@@ -15,10 +15,10 @@ echo.
 echo ---------BEFORE YOU BEGIN, MAKE SURE THAT---------
 echo.
 echo  1 - The correct Default Database is set on GeneMapper 
-echo  (see https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting)
+echo      (see https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting)
 echo.
 echo  2 - Genemapper is not running 
-echo  (close Genemapper before running PR0FYLER)
+echo      (close Genemapper before running PR0FYLER)
 echo.
 echo --------------------------------------------------
 echo. 
