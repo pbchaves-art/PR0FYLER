@@ -87,4 +87,4 @@ PR0FYLER supports a faster, more reliable, and user-friendly method for exportin
   ## Version history
 - 1.01: Initial release (09/12/2025). 
 - 1.02: Updated the command prompt title (17/12/2025).
-- 1.03: Added initial warnings | Changed language to English | Fixed user-provided executable path routine (19/08/2026).
+- 1.03: Added initial warnings | Changed language to English | Fixed user-provided executable path routine | Improved login credentials module (19/08/2026).
