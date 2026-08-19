@@ -129,7 +129,7 @@ if not exist "%EXECUTABLE%" (
     exit /b
 )
 
-echo Valid executable: "%EXECUTABLE%"
+echo Valid executable found: "%EXECUTABLE%"
 echo.
 
 :: ==========================================================
