@@ -13,6 +13,7 @@ echo     Policia Cientifica de Goias - PCI/GO
 echo ============================================
 echo. 
 echo BEFORE YOU BEGIN, MAKE SURE THAT:
+echo.
 echo  1 - The correct Default Database is set on Genemapper 
 echo  (see https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting)
 echo.
