@@ -18,7 +18,7 @@ echo  1 - The correct Default Database is set on Genemapper
 echo  (see https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting)
 echo.
 echo  2 - Genemapper is not running 
-echo  (close Genemapper before running P R 0 F Y L E R).
+echo  (close Genemapper before running P R 0 F Y L E R)
 echo.
 
 :: ==========================================================
