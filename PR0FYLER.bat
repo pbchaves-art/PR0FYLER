@@ -5,7 +5,7 @@ setlocal EnableExtensions DisableDelayedExpansion
 title P R 0 F Y L E R
 
 echo ==================================================
-echo               P R 0 F Y L E R - 1.05
+echo               P R 0 F Y L E R - 1.04
 echo               Electropherogram to PDF
 echo               Author: Paulo B. Chaves
 echo       Laboratorio de Biologia e DNA Forense
@@ -22,8 +22,20 @@ echo      (close GeneMapper on your computer before running PR0FYLER)
 echo.
 echo --------------------------------------------------
 echo.
+
+:: ==========================================================
+:: 0) SMART SEARCH FOR POWERSHELL
+:: ==========================================================
 :: Search for Microsoft PowerShell
-powershell -NoProfile -Command "exit 0" >nul 2>&1
+set "PS_EXE=powershell.exe"
+"%PS_EXE%" -NoProfile -Command "exit 0" >nul 2>&1
+
+:: Skip the fallback if the first attempt succeeded
+if not errorlevel 1 goto :powershell_found
+
+:: Try the standard Windows PowerShell path
+set "PS_EXE=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+"%PS_EXE%" -NoProfile -Command "exit 0" >nul 2>&1
 
 if errorlevel 1 (
     echo.
@@ -33,6 +45,9 @@ if errorlevel 1 (
     pause
     exit /b
 )
+
+:powershell_found
+
 :: ==========================================================
 :: 1) LOGIN CREDENTIALS AND PROJECT ID 
 :: ==========================================================
@@ -46,7 +61,8 @@ if "%USERNAME%"=="" goto :ask_user
 
 :ask_pass
 set "PASSWORD="
-for /f "delims=" %%p in ('powershell -NoProfile -Command "$pword = Read-Host ''Password'' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringUni($BSTR)"') do set "PASSWORD=%%p"
+:: ADICIONADO O @ ANTES DA VARIÁVEL "%PS_EXE%" PARA EVITAR CORTE DE ASPAS PELO CMD
+for /f "delims=" %%p in ('@"%PS_EXE%" -NoProfile -Command "$pword = Read-Host ''Password'' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringUni($BSTR)"') do set "PASSWORD=%%p"
 
 if not defined PASSWORD goto :ask_pass
 
@@ -79,7 +95,8 @@ if exist "C:\AppliedBiosystems" (
 :: If not found in C:\, search all other filesystem drives
 echo Searching in additional drives. 
 echo Please wait...
-for /f "delims=" %%D in ('powershell -NoProfile -Command "Get-PSDrive | Where-Object { $_.Provider.Name -eq 'FileSystem' } | Select-Object -ExpandProperty Name"') do (
+:: ADICIONADO O @ AQUI TAMBÉM
+for /f "delims=" %%D in ('@"%PS_EXE%" -NoProfile -Command "Get-PSDrive | Where-Object { $_.Provider.Name -eq 'FileSystem' } | Select-Object -ExpandProperty Name"') do (
     if /I not "%%D"=="C" (
         if exist "%%D:\AppliedBiosystems" (
             echo Looking into %%D:\AppliedBiosystems...
@@ -130,7 +147,8 @@ echo Valid executable found: "%EXECUTABLE%"
 :: Get the actual Desktop path configured by Windows
 set "DESKTOP_DIR="
 
-for /f "delims=" %%D in ('powershell -NoProfile -Command "[Environment]::GetFolderPath('Desktop')"') do set "DESKTOP_DIR=%%D"
+:: ADICIONADO O @ AQUI TAMBÉM
+for /f "delims=" %%D in ('@"%PS_EXE%" -NoProfile -Command "[Environment]::GetFolderPath('Desktop')"') do set "DESKTOP_DIR=%%D"
 
 if not defined DESKTOP_DIR (
     echo.
@@ -147,7 +165,7 @@ PUSHD "%EXEC_DIR%"
 
 set "TMPFILE=%TEMP%\PR0FYLER_PROJECTS_%RANDOM%.txt"
 
-powershell -NoProfile -Command "$projects='%PROJECTS%'.Split(','); $projects | ForEach-Object {$_.Trim()} | Set-Content '%TMPFILE%'"
+"%PS_EXE%" -NoProfile -Command "$projects='%PROJECTS%'.Split(','); $projects | ForEach-Object {$_.Trim()} | Set-Content '%TMPFILE%'"
 
 for /f "usebackq delims=" %%P in ("%TMPFILE%") do (
     call :PROCESS_PROJECT "%%P"
