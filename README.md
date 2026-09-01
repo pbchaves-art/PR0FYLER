@@ -89,4 +89,4 @@ PR0FYLER supports a faster, more reliable, and user-friendly method for exportin
 - 1.01: Initial release (09/12/2025). 
 - 1.02: Updated the command prompt title (17/12/2025).
 - 1.03: Changed language to English | Added initial warnings | Improved login credentials module | Fixed user-provided executable path routine (19/08/2026).
-- 1.04: Added the option to export more than one project at the same time (use commas to separate project names) | Minor additional improvements (31/08/2026).
+- 1.04: Added the option to export more than one project at the same time (use commas to separate project names) | Minor additional improvements (01/09/2026).
