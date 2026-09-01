@@ -39,7 +39,7 @@ set "PS_EXE=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
 
 if errorlevel 1 (
     echo.
-    echo [ERROR] Microsoft PowerShell is not available.
+    echo [ERROR] Microsoft PowerShell not found.
     echo PR0FYLER requires PowerShell to run.
     echo.
     pause
