@@ -22,32 +22,55 @@ echo      (close GeneMapper on your computer before running PR0FYLER)
 echo.
 echo --------------------------------------------------
 echo.
-
-:: ==========================================================
-:: 0) SMART SEARCH FOR POWERSHELL
-:: ==========================================================
 :: Search for Microsoft PowerShell
 set "PS_EXE=powershell.exe"
-"%PS_EXE%" -NoProfile -Command "exit 0" >nul 2>&1
 
-:: Skip the fallback if the first attempt succeeded
-if not errorlevel 1 goto :powershell_found
-
-:: Try the standard Windows PowerShell path
-set "PS_EXE=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
-"%PS_EXE%" -NoProfile -Command "exit 0" >nul 2>&1
+%PS_EXE% -NoProfile -Command "exit 0" >nul 2>&1
 
 if errorlevel 1 (
-    echo.
-    echo [ERROR] Microsoft PowerShell not found.
-    echo PR0FYLER requires PowerShell to run.
-    echo.
-    pause
-    exit /b
+    set "PS_EXE=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
 )
 
-:powershell_found
+"%PS_EXE%" -NoProfile -Command "exit 0" >nul 2>&1
 
+if errorlevel 1 goto :ask_powershell
+
+set "PS_RUN=%PS_EXE%"
+goto :powershell_found
+
+:ask_powershell
+echo ============================================================================
+echo [WARNING!] Microsoft PowerShell not found.
+echo PR0FYLER requires PowerShell to run.
+echo.
+echo Type the FULL PATH to the PowerShell executable file.
+echo You can drag and drop the file from Windows Explorer here to copy the path.
+echo Examples:
+echo          C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+echo          C:\Program Files\PowerShell\7\pwsh.exe
+echo ============================================================================
+
+set "PSEXEPATH="
+set /p "PSEXEPATH=PowerShell executable path: "
+
+:: Remove quotes if the user dragged and dropped the file
+for %%A in ("%PSEXEPATH%") do set "PSEXEPATH=%%~A"
+if not defined PSEXEPATH goto :ask_powershell
+if not exist "%PSEXEPATH%" goto :ask_powershell
+
+:: Verify that the provided executable works as PowerShell
+"%PSEXEPATH%" -NoProfile -Command "if ($PSVersionTable.PSVersion) { exit 0 } else { exit 1 }" >nul 2>&1
+if errorlevel 1 (
+    echo.
+    echo [ERROR] The provided file is not a valid PowerShell executable or is failing to run.
+    echo.
+    goto :ask_powershell
+)
+
+set "PS_EXE=%PSEXEPATH%"
+set PS_RUN="%PS_EXE%"
+
+:powershell_found
 :: ==========================================================
 :: 1) LOGIN CREDENTIALS AND PROJECT ID 
 :: ==========================================================
@@ -61,8 +84,7 @@ if "%USERNAME%"=="" goto :ask_user
 
 :ask_pass
 set "PASSWORD="
-:: ADICIONADO O @ ANTES DA VARIÁVEL "%PS_EXE%" PARA EVITAR CORTE DE ASPAS PELO CMD
-for /f "delims=" %%p in ('@"%PS_EXE%" -NoProfile -Command "$pword = Read-Host ''Password'' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringUni($BSTR)"') do set "PASSWORD=%%p"
+for /f "delims=" %%p in ('%PS_RUN% -NoProfile -Command "$pword = Read-Host ''Password'' -AsSecureString; $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); [System.Runtime.InteropServices.Marshal]::PtrToStringUni($BSTR)"') do set "PASSWORD=%%p"
 
 if not defined PASSWORD goto :ask_pass
 
@@ -85,7 +107,7 @@ echo.
 :: First, search in C:\AppliedBiosystems (fastest)
 if exist "C:\AppliedBiosystems" (
     echo Looking into C:\AppliedBiosystems...
-    for /f "delims=" %%F in ('dir /s /b "C:\AppliedBiosystems\GeneMapper.exe" 2^>nul') do (
+    for /f "delims=" %%F in ('dir /s /b "C:\AppliedBiosystems\GeneMapper*.exe" 2^>nul') do (
         set "EXECUTABLE=%%F"
         echo Found: "%%F"
         goto :found_check
@@ -95,12 +117,11 @@ if exist "C:\AppliedBiosystems" (
 :: If not found in C:\, search all other filesystem drives
 echo Searching in additional drives. 
 echo Please wait...
-:: ADICIONADO O @ AQUI TAMBÉM
-for /f "delims=" %%D in ('@"%PS_EXE%" -NoProfile -Command "Get-PSDrive | Where-Object { $_.Provider.Name -eq 'FileSystem' } | Select-Object -ExpandProperty Name"') do (
+for /f "delims=" %%D in ('%PS_RUN% -NoProfile -Command "Get-PSDrive | Where-Object { $_.Provider.Name -eq 'FileSystem' } | Select-Object -ExpandProperty Name"') do (
     if /I not "%%D"=="C" (
         if exist "%%D:\AppliedBiosystems" (
             echo Looking into %%D:\AppliedBiosystems...
-            for /f "delims=" %%F in ('dir /s /b "%%D:\AppliedBiosystems\GeneMapper.exe" 2^>nul') do (
+            for /f "delims=" %%F in ('dir /s /b "%%D:\AppliedBiosystems\GeneMapper*.exe" 2^>nul') do (
                 set "EXECUTABLE=%%F"
                 echo Found: "%%F"
                 goto :found_check
@@ -147,8 +168,7 @@ echo Valid executable found: "%EXECUTABLE%"
 :: Get the actual Desktop path configured by Windows
 set "DESKTOP_DIR="
 
-:: ADICIONADO O @ AQUI TAMBÉM
-for /f "delims=" %%D in ('@"%PS_EXE%" -NoProfile -Command "[Environment]::GetFolderPath('Desktop')"') do set "DESKTOP_DIR=%%D"
+for /f "delims=" %%D in ('%PS_RUN% -NoProfile -Command "[Environment]::GetFolderPath('Desktop')"') do set "DESKTOP_DIR=%%D"
 
 if not defined DESKTOP_DIR (
     echo.
@@ -165,7 +185,18 @@ PUSHD "%EXEC_DIR%"
 
 set "TMPFILE=%TEMP%\PR0FYLER_PROJECTS_%RANDOM%.txt"
 
-"%PS_EXE%" -NoProfile -Command "$projects='%PROJECTS%'.Split(','); $projects | ForEach-Object {$_.Trim()} | Set-Content '%TMPFILE%'"
+:: Split project names by comma using pure batch (no PowerShell)
+type nul > "%TMPFILE%"
+set "_PROJ_REMAINING=%PROJECTS%"
+
+:split_loop
+if not defined _PROJ_REMAINING goto :split_done
+for /f "tokens=1* delims=," %%a in ("%_PROJ_REMAINING%") do (
+    for /f "tokens=*" %%t in ("%%a") do echo %%t>>"%TMPFILE%"
+    set "_PROJ_REMAINING=%%b"
+)
+goto :split_loop
+:split_done
 
 for /f "usebackq delims=" %%P in ("%TMPFILE%") do (
     call :PROCESS_PROJECT "%%P"
