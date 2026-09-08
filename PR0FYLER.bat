@@ -5,7 +5,7 @@ setlocal EnableExtensions DisableDelayedExpansion
 title P R 0 F Y L E R
 
 echo ==================================================
-echo               P R 0 F Y L E R - 1.04
+echo               P R 0 F Y L E R - 1.041
 echo               Electropherogram to PDF
 echo               Author: Paulo B. Chaves
 echo       Laboratorio de Biologia e DNA Forense
