@@ -107,7 +107,7 @@ echo.
 :: First, search in C:\AppliedBiosystems (fastest)
 if exist "C:\AppliedBiosystems" (
     echo Looking into C:\AppliedBiosystems...
-    for /f "delims=" %%F in ('dir /s /b "C:\AppliedBiosystems\GeneMapper*.exe" 2^>nul') do (
+    for /f "delims=" %%F in ('dir /s /b "C:\AppliedBiosystems\GeneMapper.exe" 2^>nul') do (
         set "EXECUTABLE=%%F"
         echo Found: "%%F"
         goto :found_check
@@ -121,7 +121,7 @@ for /f "delims=" %%D in ('%PS_RUN% -NoProfile -Command "Get-PSDrive | Where-Obje
     if /I not "%%D"=="C" (
         if exist "%%D:\AppliedBiosystems" (
             echo Looking into %%D:\AppliedBiosystems...
-            for /f "delims=" %%F in ('dir /s /b "%%D:\AppliedBiosystems\GeneMapper*.exe" 2^>nul') do (
+            for /f "delims=" %%F in ('dir /s /b "%%D:\AppliedBiosystems\GeneMapper.exe" 2^>nul') do (
                 set "EXECUTABLE=%%F"
                 echo Found: "%%F"
                 goto :found_check
