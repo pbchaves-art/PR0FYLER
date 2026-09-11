@@ -5,7 +5,7 @@ setlocal EnableExtensions DisableDelayedExpansion
 title P R 0 F Y L E R
 
 echo ==================================================
-echo               P R 0 F Y L E R - 1.041
+echo               P R 0 F Y L E R - 1.05
 echo               Electropherogram to PDF
 echo               Author: Paulo B. Chaves
 echo       Laboratorio de Biologia e DNA Forense
@@ -14,11 +14,12 @@ echo ==================================================
 echo.
 echo ---------BEFORE YOU BEGIN, MAKE SURE THAT---------
 echo.
-echo  1 - The correct Default Database is set on GeneMapper
-echo      (see https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting)
+echo  1 - The correct Default Database is set on GeneMapper.
+echo      - See https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting
 echo.
-echo  2 - GeneMapper is not running
-echo      (close GeneMapper on your computer before running PR0FYLER)
+echo  2 - GeneMapper is not running.
+echo      - PR0FYLER will try to close GeneMapper automatically before it asks for your credentials.
+echo      - If it can't, you may need to close GeneMapper yourself or restart your computer or the database computer.
 echo.
 echo --------------------------------------------------
 echo.
@@ -72,7 +73,13 @@ set PS_RUN="%PS_EXE%"
 
 :powershell_found
 :: ==========================================================
-:: 1) LOGIN CREDENTIALS AND PROJECT ID 
+:: 1) CLOSE GENEMAPPER 
+:: ==========================================================
+:: Close GeneMapper if it is already running
+%PS_RUN% -NoProfile -Command "Get-Process | Where-Object { $_.MainWindowTitle -like '*GeneMapper*' } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+
+:: ==========================================================
+:: 2) LOGIN CREDENTIALS AND PROJECT ID 
 :: ==========================================================
 echo ENTER YOUR GENEMAPPER LOGIN CREDENTIALS AND PROJECT NAME(S)
 echo.
@@ -97,7 +104,7 @@ echo.
 echo --------------------------------------------------
 echo.
 :: ==========================================================
-:: 2) SMART SEARCH FOR THE GENEMAPPER EXECUTABLE
+:: 3) SMART SEARCH FOR THE GENEMAPPER EXECUTABLE
 :: ==========================================================
 set "EXECUTABLE="
 
@@ -132,7 +139,7 @@ for /f "delims=" %%D in ('%PS_RUN% -NoProfile -Command "Get-PSDrive | Where-Obje
 
 :found_check
 :: ==========================================================
-:: 3) USER INFORMED EXECUTABLE PATH (Fallback)
+:: 4) USER INFORMED EXECUTABLE PATH (Fallback)
 :: ==========================================================
 if defined EXECUTABLE goto :check_exist
 
@@ -163,7 +170,7 @@ if not exist "%EXECUTABLE%" (
 echo Valid executable found: "%EXECUTABLE%"
 
 :: ==========================================================
-:: 4) TEMPORARY FILE W/ PROJECT NAMES & DESKTOP PATH
+:: 5) TEMPORARY FILE W/ PROJECT NAMES & DESKTOP PATH
 :: ==========================================================
 :: Get the actual Desktop path configured by Windows
 set "DESKTOP_DIR="
@@ -210,7 +217,7 @@ POPD
 goto :FINISHED
 
 :: ==========================================================
-:: 5) CREATE PROJECT FOLDER ON DESKTOP
+:: 6) CREATE PROJECT FOLDER ON DESKTOP
 :: ==========================================================
 :PROCESS_PROJECT
 set "PROJECT=%~1"
@@ -230,7 +237,7 @@ if not exist "%EXPORTDIR%" (
 )
 
 :: ==========================================================
-:: 6) RUN
+:: 7) RUN
 :: ==========================================================
 echo.
 echo Exporting project "%PROJECT%"
