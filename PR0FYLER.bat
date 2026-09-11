@@ -19,7 +19,7 @@ echo      - See https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooti
 echo.
 echo  2 - GeneMapper is not running.
 echo      - PR0FYLER will try to close GeneMapper automatically before it asks for your credentials.
-echo      - If it can't, you may need to close GeneMapper yourself or restart your computer or the database computer.
+echo      - If it can't, you may need to close GeneMapper yourself or restart your computer or the Database computer.
 echo.
 echo --------------------------------------------------
 echo.
