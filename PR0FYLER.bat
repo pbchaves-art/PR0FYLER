@@ -23,7 +23,9 @@ echo      - If it can't, you may need to close GeneMapper yourself or restart yo
 echo.
 echo --------------------------------------------------
 echo.
-:: Search for Microsoft PowerShell
+:: ==========================================================
+:: 1) SEARCH FOR MICROSOFT POWERSHELL
+:: ==========================================================
 set "PS_EXE=powershell.exe"
 
 %PS_EXE% -NoProfile -Command "exit 0" >nul 2>&1
@@ -73,7 +75,7 @@ set PS_RUN="%PS_EXE%"
 
 :powershell_found
 :: ==========================================================
-:: 1) CLOSE GENEMAPPER 
+:: 2) CLOSE GENEMAPPER 
 :: ==========================================================
 :: Close visible GeneMapper windows without affecting common applications
 %PS_RUN% -NoProfile -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'GeneMapper*' -and $_.ProcessName -notin @('chrome','chromium','msedge','firefox','brave','opera','vivaldi','iexplore','winword','powerpnt','excel','msaccess','mspub','outlook','onenote','notepad','notepad++','wordpad','code','devenv','sublime_text','atom','soffice','soffice.bin','swriter','scalc','simpress','acrord32','acrobat','foxitpdfreader','sumatrapdf','explorer','SearchHost','ApplicationFrameHost','cmd','conhost','powershell','pwsh','WindowsTerminal','mspaint','Photos','Microsoft.Photos','photoshop','illustrator','thunderbird','slack','teams','ms-teams') } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
@@ -82,7 +84,7 @@ set PS_RUN="%PS_EXE%"
 %PS_RUN% -NoProfile -Command "Get-Process -Name 'GMprw','GMpprw','GeneMapper*' -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
 
 :: ==========================================================
-:: 2) LOGIN CREDENTIALS AND PROJECT ID 
+:: 3) LOGIN CREDENTIALS AND PROJECT ID 
 :: ==========================================================
 echo ENTER YOUR GENEMAPPER LOGIN CREDENTIALS AND PROJECT NAME(S)
 echo.
@@ -107,7 +109,7 @@ echo.
 echo --------------------------------------------------
 echo.
 :: ==========================================================
-:: 3) SMART SEARCH FOR THE GENEMAPPER EXECUTABLE
+:: 4) SMART SEARCH FOR THE GENEMAPPER EXECUTABLE
 :: ==========================================================
 set "EXECUTABLE="
 
@@ -142,7 +144,7 @@ for /f "delims=" %%D in ('%PS_RUN% -NoProfile -Command "Get-PSDrive | Where-Obje
 
 :found_check
 :: ==========================================================
-:: 4) USER INFORMED EXECUTABLE PATH (Fallback)
+:: 5) USER INFORMED EXECUTABLE PATH (Fallback)
 :: ==========================================================
 if defined EXECUTABLE goto :check_exist
 
@@ -173,7 +175,7 @@ if not exist "%EXECUTABLE%" (
 echo Valid executable found: "%EXECUTABLE%"
 
 :: ==========================================================
-:: 5) TEMPORARY FILE W/ PROJECT NAMES & DESKTOP PATH
+:: 6) TEMPORARY FILE W/ PROJECT NAMES & DESKTOP PATH
 :: ==========================================================
 :: Get the actual Desktop path configured by Windows
 set "DESKTOP_DIR="
@@ -220,7 +222,7 @@ POPD
 goto :FINISHED
 
 :: ==========================================================
-:: 6) CREATE PROJECT FOLDER ON DESKTOP
+:: 7) CREATE PROJECT FOLDER ON DESKTOP
 :: ==========================================================
 :PROCESS_PROJECT
 set "PROJECT=%~1"
@@ -240,7 +242,7 @@ if not exist "%EXPORTDIR%" (
 )
 
 :: ==========================================================
-:: 7) RUN
+:: 8) RUN
 :: ==========================================================
 echo.
 echo Exporting project "%PROJECT%"
