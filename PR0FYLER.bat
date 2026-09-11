@@ -76,7 +76,7 @@ set PS_RUN="%PS_EXE%"
 :: 1) CLOSE GENEMAPPER 
 :: ==========================================================
 :: Close GeneMapper if it is already running
-%PS_RUN% -NoProfile -Command "Get-Process | Where-Object { $_.MainWindowTitle -like 'GeneMapper*' } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+%PS_RUN% -NoProfile -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'GeneMapper*' -and $_.ProcessName -notin @('chrome','msedge','firefox','brave','opera','vivaldi','iexplore','notepad','notepad++','winword','powerpnt','excel','wordpad','acrord32','acrobat','soffice','soffice.bin') } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
 
 :: ==========================================================
 :: 2) LOGIN CREDENTIALS AND PROJECT ID 
