@@ -76,7 +76,7 @@ set PS_RUN="%PS_EXE%"
 :: 1) CLOSE GENEMAPPER 
 :: ==========================================================
 :: Close GeneMapper if it is already running
-%PS_RUN% -NoProfile -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'GeneMapper*' -and $_.ProcessName -notin @('chrome','msedge','firefox','brave','opera','vivaldi','iexplore','notepad','notepad++','winword','powerpnt','excel','wordpad','acrord32','acrobat','soffice','soffice.bin') } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+%PS_RUN% -NoProfile -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { ($_.MainWindowTitle -like 'GeneMapper*' -and $_.ProcessName -notin @('chrome','chromium','msedge','firefox','brave','opera','vivaldi','iexplore','winword','powerpnt','excel','msaccess','mspub','outlook','onenote','notepad','notepad++','wordpad','code','devenv','sublime_text','atom','soffice','soffice.bin','swriter','scalc','simpress','acrord32','acrobat','foxitpdfreader','sumatrapdf','explorer','SearchHost','ApplicationFrameHost','cmd','conhost','powershell','pwsh','WindowsTerminal','mspaint','Photos','Microsoft.Photos','photoshop','illustrator','thunderbird','slack','teams','ms-teams')) -or $_.ProcessName -in @('GMprw','GMpprw') } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
 
 :: ==========================================================
 :: 2) LOGIN CREDENTIALS AND PROJECT ID 
