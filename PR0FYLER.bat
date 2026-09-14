@@ -18,7 +18,7 @@ echo  1 - The correct Default Database is set on GeneMapper.
 echo      - See https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting
 echo.
 echo  2 - GeneMapper is not running.
-echo      - PR0FYLER will try to close GeneMapper automatically after it asks for your credentials.
+echo      - PR0FYLER will try to close GeneMapper automatically after you enter your credentials.
 echo      - If it can't, you may need to close GeneMapper yourself or restart your computer or the Database computer.
 echo      - [WARNING!] Save your work on GeneMapper before running PR0FYLER.
 echo.
