@@ -15,7 +15,6 @@ The current version has been tested with GeneMapper ID-X 1.6 in both Client and 
 - Hidden password entry through PowerShell
 - Support for exporting multiple projects in a single run
 - Automatic attempt to close running GeneMapper instances
-- Three-second waiting period after closing GeneMapper
 - Automatic search for GeneMapper in common Applied Biosystems installation directories
 - Search across connected file-system drives
 - Manual fallback for specifying the full GeneMapper executable path
@@ -102,4 +101,4 @@ PR0FYLER supports a faster, more reliable, and user-friendly method for exportin
 - 1.02: Updated the command prompt title (17/12/2025).
 - 1.03: Changed language to English | Added initial warnings | Improved login credentials module | Fixed user-provided executable path routine (19/08/2026).
 - 1.041: Added the option to export more than one project at the same time (use commas to separate project names) | Minor additional improvements (08/09/2026).
-- 1.05: PR0FYLER closes GeneMapper before it starts running (11/09/2026).
+- 1.05: PR0FYLER attempts to close GeneMapper before it starts running (11/09/2026).
