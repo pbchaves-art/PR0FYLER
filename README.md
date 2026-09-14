@@ -1,32 +1,44 @@
 # PR0FYLER – GeneMapper Electropherogram Exporter
+
 ### Version 1.05
 
 ## Overview
-PR0FYLER is an automated tool designed to streamline the export of electropherogram plots from Applied Biosystems GeneMapper. It simplifies the workflow used in forensic DNA laboratories by collecting user credentials, locating the GeneMapper executable, running the export process, and organizing the generated files. 
 
-The current version has been tested on GeneMapper ID-X 1.6 (both Client and Full installations).
+PR0FYLER is a Windows batch tool designed to automate the export of electropherogram plots from Applied Biosystems GeneMapper. It streamlines workflows in forensic DNA laboratories by collecting the required login information, closing existing GeneMapper instances, locating the GeneMapper executable, processing one or more projects, and organizing the exported files.
+
+The current version has been tested with GeneMapper ID-X 1.6 in both Client and Full installations.
 
 ---
 
 ## Key Features
-- Secure input for username and password  
-- Automatic detection of GeneMapper installation  
-- Smart search across system drives  
-- Manual fallback option for specifying the installation directory  
-- Automatic creation of a project-based export folder on the Desktop  
-- Automated execution of GeneMapper with command-line parameters  
-- Log file generation for audit and troubleshooting  
-- Compatible with multiple GeneMapper versions and directory structures
-- Exports multiple projects at a time
+
+- Hidden password entry through PowerShell
+- Support for exporting multiple projects in a single run
+- Automatic attempt to close running GeneMapper instances
+- Three-second waiting period after closing GeneMapper
+- Automatic search for GeneMapper in common Applied Biosystems installation directories
+- Search across connected file-system drives
+- Manual fallback for specifying the full GeneMapper executable path
+- Support for Windows PowerShell and manually specified PowerShell 7 installations
+- Automatic detection of the Windows Desktop folder
+- Automatic creation of a separate export folder for each project
+- Automated execution of GeneMapper using command-line parameters
+- Separate execution log for each project
+- Verification that PDF files were generated
+- Support for different GeneMapper executable names and installation directories
 
 ---
 
-## Quick guide
-- Download PR0FYLER.bat  
-- Open and run it
-- Enter your GeneMapper credentials (username and password)
-- Enter the GeneMapper project ID that contains the profiles to be exported to PDF 
-- Find the folder containing the exported PDF files on your Desktop
+## Quick Guide
+
+1. Download **PR0FYLER.bat**.
+2. Make sure the correct Default Database is configured in GeneMapper.
+3. Save any work currently open in GeneMapper.
+4. Run **PR0FYLER.bat**.
+5. Enter your GeneMapper username and password.
+6. Enter one or more GeneMapper project names. Separate multiple project names with commas.
+7. Wait for PR0FYLER to complete the export.
+8. Find the project folders containing the exported PDF and log files on your Desktop.
 
 ---
 
