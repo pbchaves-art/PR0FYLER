@@ -18,7 +18,7 @@ echo  1 - The correct Default Database is set on GeneMapper.
 echo      - See https://github.com/pbchaves-art/PR0FYLER/blob/main/Troubleshooting
 echo.
 echo  2 - GeneMapper is not running.
-echo      - PR0FYLER will try to close GeneMapper automatically before it asks for your credentials.
+echo      - PR0FYLER will try to close GeneMapper automatically after it asks for your credentials.
 echo      - If it can't, you may need to close GeneMapper yourself or restart your computer or the Database computer.
 echo      - [WARNING!] Save your work on GeneMapper before running PR0FYLER.
 echo.
@@ -75,17 +75,9 @@ set "PS_EXE=%PSEXEPATH%"
 set PS_RUN="%PS_EXE%"
 
 :powershell_found
-:: ==========================================================
-:: 2) CLOSE GENEMAPPER 
-:: ==========================================================
-:: Close visible GeneMapper windows without affecting common applications
-%PS_RUN% -NoProfile -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'GeneMapper*' -and $_.ProcessName -notin @('chrome','chromium','msedge','firefox','brave','opera','vivaldi','iexplore','winword','powerpnt','excel','msaccess','mspub','outlook','onenote','notepad','notepad++','wordpad','code','devenv','sublime_text','atom','soffice','soffice.bin','swriter','scalc','simpress','acrord32','acrobat','foxitpdfreader','sumatrapdf','explorer','SearchHost','ApplicationFrameHost','cmd','conhost','powershell','pwsh','WindowsTerminal','mspaint','Photos','Microsoft.Photos','photoshop','illustrator','thunderbird','slack','teams','ms-teams') } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
-
-:: Close hidden GeneMapper processes with known process names
-%PS_RUN% -NoProfile -Command "Get-Process -Name 'GMprw','GMpprw','GeneMapper*' -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
 
 :: ==========================================================
-:: 3) LOGIN CREDENTIALS AND PROJECT ID 
+:: 2) LOGIN CREDENTIALS AND PROJECT ID 
 :: ==========================================================
 echo ENTER YOUR GENEMAPPER LOGIN CREDENTIALS AND PROJECT NAME(S)
 echo.
@@ -109,6 +101,18 @@ if "%PROJECTS%"=="" goto :ask_proj
 echo.
 echo --------------------------------------------------
 echo.
+:: ==========================================================
+:: 3) CLOSE GENEMAPPER 
+:: ==========================================================
+echo Trying to close any running instances of GeneMapper...
+
+:: Close visible GeneMapper windows without affecting common applications
+%PS_RUN% -NoProfile -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -like 'GeneMapper*' -and $_.ProcessName -notin @('chrome','chromium','msedge','firefox','brave','opera','vivaldi','iexplore','winword','powerpnt','excel','msaccess','mspub','outlook','onenote','notepad','notepad++','wordpad','code','devenv','sublime_text','atom','soffice','soffice.bin','swriter','scalc','simpress','acrord32','acrobat','foxitpdfreader','sumatrapdf','explorer','SearchHost','ApplicationFrameHost','cmd','conhost','powershell','pwsh','WindowsTerminal','mspaint','Photos','Microsoft.Photos','photoshop','illustrator','thunderbird','slack','teams','ms-teams') } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+
+:: Close hidden GeneMapper processes with known process names
+%PS_RUN% -NoProfile -Command "Get-Process -Name 'GMprw','GMpprw','GeneMapper*' -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+
+timeout /t 3 /nobreak >nul
 :: ==========================================================
 :: 4) SMART SEARCH FOR THE GENEMAPPER EXECUTABLE
 :: ==========================================================
