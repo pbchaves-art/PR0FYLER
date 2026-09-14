@@ -264,7 +264,7 @@ if errorlevel 1 (
     echo.
     echo [ERROR] No PDF files were generated for project "%PROJECT%"
     echo Check the log file:
-    echo "%EXPORTDIR%\log_execucao.txt"
+    echo "%EXPORTDIR%\log_genemapper.txt"
     echo.
     exit /b
 )
